@@ -10,7 +10,7 @@
     <style>
         :root {
             --primary-color: #242565;
-            --secondary-color: #FFA500;
+            --secondary-color: #dfb544;
             --light-bg: #F5F5F5;
         }
 
@@ -70,7 +70,7 @@
             color: white;
             padding: 2rem;
             border-radius: 20px;
-            margin-top: -50px;
+            margin-top: -100px;
             position: relative;
             z-index: 3;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -121,6 +121,11 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 1rem;
+        }
+
+        .icon-box .icon img {
+            width: 40px;
+            height: 40px;
         }
 
         .icon-box .icon i {
@@ -434,9 +439,44 @@
             padding: 0.5rem 1rem;
             border-radius: 0 5px 5px 0;
         }
-        .text-brand-yellow{
-            color: #FFA500;
+
+        .text-brand-yellow {
+            color: #dfb544;
         }
+
+        .contestant-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contestant-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .contestant-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, rgba(76, 78, 194, 0.2), rgba(13, 110, 253, 0.2));
+            z-index: 1;
+        }
+
+        .contestant-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
     </style>
 </head>
 
@@ -445,37 +485,42 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-brand">
         <div class="container">
-            <a class="navbar-brand" href="#"><img src="assets/logo.png" alt="RSW Logo"></a>
+            <a class="navbar-brand" href="#"><img src="assets/hero/logo.png" alt="RSW Logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">About us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">RSW Talent Contests</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link btn btn-outline-warning" href="#">Vote</a></li>
-                </ul>
+                <div class="container-fluid">
+                    <div class="row justify-content-lg-center">
+                        <ul class="navbar-nav ms-auto d-lg-flex justify-content-between w-50">
+                            <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">About us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">RSW Talent Contests</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link btn btn-outline-warning" href="#">Vote</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+
         </div>
     </nav>
 
     <!-- Hero Section -->
     <div class="hero-section">
-        <img src="assets/hero_bg.png" class="hero-image" alt="Hero Background">
+        <img src="assets/hero/hero_bg.png" class="hero-image" alt="Hero Background">
         <div class="hero-overlay"></div>
         <div class="container hero-content">
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <img src="assets/woman.png" class="img-fluid" alt="Featured Image">
+                    <img src="assets/hero/woman.png" class="img-fluid" alt="Featured Image">
                 </div>
                 <div class="col-md-6 text-white">
                     <h1 class="text-brand-yellow">Let your talent shine to serve God, with heart of humanity</h1>
                     <p>RISE AND SHINE WORLD Inc. has put up this RSW Talent Hunt competition for everyone who feels
                         talented and gifted.</p>
-                    <a href="#" class="btn btn-primary">Learn More</a>
+                    <a href="#" class="btn btn-outline-light">Learn More</a>
                     <a href="#" class="btn btn-warning">Register for contest</a>
                 </div>
             </div>
@@ -520,7 +565,7 @@
                 <div class="col-md-4">
                     <div class="icon-box active">
                         <div class="icon">
-                            <i class="fas fa-eye"></i>
+                            <img src="assets/icons/image.png" class="img-fluid" />
                         </div>
                         <h4>VISION</h4>
                         <p>RSW Talent Hunt is an international gospel talent pageant, organized with a clear concept of
@@ -530,7 +575,7 @@
                 <div class="col-md-4">
                     <div class="icon-box">
                         <div class="icon">
-                            <i class="fas fa-bullseye"></i>
+                            <img src="assets/icons/image.png" class="img-fluid" />
                         </div>
                         <h4>MISSION</h4>
                         <p>RSW Talent Hunt is an international gospel talent pageant, organized with a clear concept of
@@ -540,7 +585,7 @@
                 <div class="col-md-4">
                     <div class="icon-box">
                         <div class="icon">
-                            <i class="fas fa-lightbulb"></i>
+                            <img src="assets/icons/image.png" class="img-fluid" />
                         </div>
                         <h4>THEME</h4>
                         <p>"Let your talent shine to serve God, with Heart of humanity"</p>
@@ -558,7 +603,7 @@
                 <!-- Contest Card 1 -->
                 <div class="col-md-3">
                     <div class="contest-card">
-                        <img src="https://placehold.co/400x300" alt="RSW Talent Hunt">
+                        <img src="assets/talent/talent_1.png" alt="RSW Talent Hunt">
                         <div class="card-body">
                             <p class="card-text"><i class="far fa-clock"></i> 15-09-2023 10:00 PM</p>
                             <h5 class="card-title">RSW TALENT HUNT RWANDA FIRST EDITION</h5>
@@ -570,7 +615,7 @@
                 <!-- Contest Card 2 -->
                 <div class="col-md-3">
                     <div class="contest-card">
-                        <img src="https://placehold.co/400x300" alt="RSW Talent Hunt">
+                        <img src="assets/talent/talent_1.png" alt="RSW Talent Hunt">
                         <div class="card-body">
                             <p class="card-text"><i class="far fa-clock"></i> 15-09-2023 10:00 PM</p>
                             <h5 class="card-title">RSW TALENT HUNT RWANDA FIRST EDITION</h5>
@@ -582,7 +627,7 @@
                 <!-- Contest Card 3 -->
                 <div class="col-md-3">
                     <div class="contest-card">
-                        <img src="https://placehold.co/400x300" alt="RSW Talent Hunt">
+                        <img src="assets/talent/talent_1.png" alt="RSW Talent Hunt">
                         <div class="card-body">
                             <p class="card-text"><i class="far fa-clock"></i> 15-09-2023 10:00 PM</p>
                             <h5 class="card-title">RSW TALENT HUNT RWANDA FIRST EDITION</h5>
@@ -594,7 +639,7 @@
                 <!-- Contest Card 4 -->
                 <div class="col-md-3">
                     <div class="contest-card">
-                        <img src="https://placehold.co/400x300" alt="RSW Talent Hunt">
+                        <img src="assets/talent/talent_1.png" alt="RSW Talent Hunt">
                         <div class="card-body">
                             <p class="card-text"><i class="far fa-clock"></i> 15-09-2023 10:00 PM</p>
                             <h5 class="card-title">RSW TALENT HUNT RWANDA FIRST EDITION</h5>
@@ -603,6 +648,99 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-3">
+                    <div class="contest-card">
+                        <img src="assets/talent/talent_1.png" alt="RSW Talent Hunt">
+                        <div class="card-body">
+                            <p class="card-text"><i class="far fa-clock"></i> 15-09-2023 10:00 PM</p>
+                            <h5 class="card-title">RSW TALENT HUNT RWANDA FIRST EDITION</h5>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> Rwanda</p>
+                            <button class="btn btn-closed">Closed</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="contest-card">
+                        <img src="assets/talent/talent_1.png" alt="RSW Talent Hunt">
+                        <div class="card-body">
+                            <p class="card-text"><i class="far fa-clock"></i> 15-09-2023 10:00 PM</p>
+                            <h5 class="card-title">RSW TALENT HUNT RWANDA FIRST EDITION</h5>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> Rwanda</p>
+                            <button class="btn btn-closed">Closed</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="contest-card">
+                        <img src="assets/talent/talent_1.png" alt="RSW Talent Hunt">
+                        <div class="card-body">
+                            <p class="card-text"><i class="far fa-clock"></i> 15-09-2023 10:00 PM</p>
+                            <h5 class="card-title">RSW TALENT HUNT RWANDA FIRST EDITION</h5>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> Rwanda</p>
+                            <button class="btn btn-closed">Closed</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="contest-card">
+                        <img src="assets/talent/talent_1.png" alt="RSW Talent Hunt">
+                        <div class="card-body">
+                            <p class="card-text"><i class="far fa-clock"></i> 15-09-2023 10:00 PM</p>
+                            <h5 class="card-title">RSW TALENT HUNT RWANDA FIRST EDITION</h5>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> Rwanda</p>
+                            <button class="btn btn-closed">Closed</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="contest-card">
+                        <img src="assets/talent/talent_2.png" alt="RSW Talent Hunt">
+                        <div class="card-body">
+                            <p class="card-text"><i class="far fa-clock"></i> 15-09-2023 10:00 PM</p>
+                            <h5 class="card-title">RSW TALENT HUNT RWANDA FIRST EDITION</h5>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> Rwanda</p>
+                            <button class="btn btn-closed">Closed</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="contest-card">
+                        <img src="assets/talent/talent_2.png" alt="RSW Talent Hunt">
+                        <div class="card-body">
+                            <p class="card-text"><i class="far fa-clock"></i> 15-09-2023 10:00 PM</p>
+                            <h5 class="card-title">RSW TALENT HUNT RWANDA FIRST EDITION</h5>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> Rwanda</p>
+                            <button class="btn btn-closed">Closed</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="contest-card">
+                        <img src="assets/talent/talent_2.png" alt="RSW Talent Hunt">
+                        <div class="card-body">
+                            <p class="card-text"><i class="far fa-clock"></i> 15-09-2023 10:00 PM</p>
+                            <h5 class="card-title">RSW TALENT HUNT RWANDA FIRST EDITION</h5>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> Rwanda</p>
+                            <button class="btn btn-closed">Closed</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="contest-card">
+                        <img src="assets/talent/talent_2.png" alt="RSW Talent Hunt">
+                        <div class="card-body">
+                            <p class="card-text"><i class="far fa-clock"></i> 15-09-2023 10:00 PM</p>
+                            <h5 class="card-title">RSW TALENT HUNT RWANDA FIRST EDITION</h5>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> Rwanda</p>
+                            <button class="btn btn-closed">Closed</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 d-flex justify-content-center align-items-center">
+                    <a href="#" class="btn btn-warning">Load More</a>
+                </div>
+
             </div>
         </div>
     </section>
@@ -612,9 +750,11 @@
         <div class="container">
             <h2>About us</h2>
             <h3>Get to Know Us <span>Better</span></h3>
-            <div class="row">
-                <div class="col-md-6">
-                    <img src="https://placehold.co/600x300" alt="RSW Talent Hunt West Province Registration">
+            <div class="row gy-4">
+                <div class="col-md-4">
+                    <img src="assets/about/about_1.png" alt="RSW Talent Hunt West Province Registration" class="img-fluid">
+                </div>
+                <div class="col-md-8">
                     <h4>A Brief Background</h4>
                     <p>In 2009 when Bishop Justin Alain was a young man, one time when he went to pray at the church in
                         the village where he lived, there was a youth training program with the theme of: Let your gift
@@ -622,22 +762,41 @@
                         the gift of God, which is in thee by the putting on of my hands. For God hath not given us the
                         spirit of fear; but of power, and of love, and of a sound mind. Be not thou therefore ashamed of
                         the testimony of our Lord, nor of me his prisoner: but be thou partaker of the afflictions of
-                        the gospel according to the power of God. (2 Timothy 1:6-8)</p>
-                    <p>The training was organized by people from America. After three days of training, it made him
-                        understand that it was time for his talents to be revealed and enlightened to many. It motivated
-                        him to use the gift that given to him by God. Since that time, he felt that there are people who
-                        are self-deprecating among them who feel that they are not capable of anything, he feels that he
-                        should go and tell people to show their talents because they were given to them by God.</p>
+                        the gospel according to the power of God. (2 Timothy 1:6-8)
+                    </p>
                 </div>
-                <div class="col-md-6">
-                    <img src="https://placehold.co/600x300" alt="RSW Talent Hunt Participants">
-                    <p>Years later he got married and continued the good work of serving God through the gifts given to
+                <div class="col-md-8">
+                    <p>
+                        The training was organized by people from America. After three days of training, it made him
+                        understand that it was time for his talents to be revealed and enlightened to many. It motivated
+                        him to use the gift that given to him by God.
+                    </p>
+                    <p>
+
+                        Since that time, he felt that there are people who are self-deprecating among them who feel that
+                        they are not capable of anything, he feels that he should go and tell people to show their
+                        talents because they were given to them by God.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <img src="assets/about/about_2.png" alt="RSW Talent Hunt Participants">
+                </div>
+                <div class="col-md-4">
+                    <img src="assets/about/about_3.png" alt="Bishop Justin Alain">
+                </div>
+                <div class="col-md-8">
+                    <p>
+                        Years later he got married and continued the good work of serving God through the gifts given to
                         him by God together with his wife in expanding the kingdom of God. Around 2012, God found Bishop
-                        Justin Alain in a vision. In that vision, God showed him 5 stars in 1 star and immediately
-                        produced 3 things. God has revealed to him that the five stars are the 5 directions of the
-                        earth: the five continents of the world, and the 5 directions that characterize man if they will
-                        combine in 1 star (Jesus Christ) would do.</p>
-                    <img src="https://placehold.co/600x300" alt="Bishop Justin Alain">
+                        Justin Alain in a vision.
+                    </p>
+                    <p>
+
+                        In that vision, God showed him 5 stars in 1 star and immediately produced 3 Things, God has
+                        revealed to him that the five stars are the 5 directions of the earth, the five continents of
+                        the world, and the 5 directions that characterize man if they will combine in 1 star (Jesus
+                        Christ) would come out:
+                    </p>
                 </div>
             </div>
         </div>
@@ -649,15 +808,15 @@
             <h2>Our Partners</h2>
             <p>We've had the pleasure of working with industry-defining brands. These are just some of them.</p>
             <div class="partner-logos">
-                <img src="https://placehold.co/120x40" alt="Spotify" title="Spotify">
-                <img src="https://placehold.co/120x40" alt="Google" title="Google">
-                <img src="https://placehold.co/120x40" alt="Stripe" title="Stripe">
-                <img src="https://placehold.co/120x40" alt="YouTube" title="YouTube">
-                <img src="https://placehold.co/120x40" alt="Microsoft" title="Microsoft">
-                <img src="https://placehold.co/120x40" alt="Medium" title="Medium">
-                <img src="https://placehold.co/120x40" alt="Zoom" title="Zoom">
-                <img src="https://placehold.co/120x40" alt="Uber" title="Uber">
-                <img src="https://placehold.co/120x40" alt="Grab" title="Grab">
+                <img src="assets/social/spotify.png" alt="Spotify" title="Spotify">
+                <img src="assets/social/google.png" alt="Google" title="Google">
+                <img src="assets/social/stripe.png" alt="Stripe" title="Stripe">
+                <img src="assets/social/youtube.png" alt="YouTube" title="YouTube">
+                <img src="assets/social/microsoft.png" alt="Microsoft" title="Microsoft">
+                <img src="assets/social/medium.png" alt="Medium" title="Medium">
+                <img src="assets/social/zoom.png" alt="Zoom" title="Zoom">
+                <img src="assets/social/uber.png" alt="Uber" title="Uber">
+                <img src="assets/social/grab.png" alt="Grab" title="Grab">
             </div>
         </div>
     </section>
@@ -667,45 +826,49 @@
         <div class="container">
             <h2>Gallery</h2>
             <p>Dive into our memories that we have created through events and concerts!!</p>
-            <div class="gallery-images">
-                <img src="https://placehold.co/600x400" alt="Gallery Image 1">
-                <img src="https://placehold.co/600x400" alt="Gallery Image 2">
-                <img src="https://placehold.co/600x400" alt="Gallery Image 3">
-                <img src="https://placehold.co/600x400" alt="Gallery Image 4">
-                <img src="https://placehold.co/600x400" alt="Gallery Image 5">
-                <img src="https://placehold.co/600x400" alt="Gallery Image 6">
+            <div class="gallery-images d-flex justify-content-center w-full">
+                <img src="assets/gallery/6.png" alt="Gallery Image 6">
+                <img src="assets/gallery/1.png" alt="Gallery Image 1">
+                <img src="assets/gallery/2.png" alt="Gallery Image 2">
+                <img src="assets/gallery/3.png" alt="Gallery Image 3">
+                <img src="assets/gallery/4.png" alt="Gallery Image 4">
+                <img src="assets/gallery/5.png" alt="Gallery Image 5">
             </div>
         </div>
     </section>
 
+
+
     <!-- Previous Contestants Section -->
     <section class="contestants">
-        <div class="container">
-            <h2>Previous contestants and competitions</h2>
+        <h2 class="text-center">Previous contestants and competitions</h2>
+        <div class="container contestant-section">
             <div id="contestantCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
+                <img src="assets/contestants/bg.png" class="contestant-image" alt="Contestant Background">
+                <div class="contestant-overlay"></div>
+                <div class="carousel-inner contestant-content">
                     <div class="carousel-item active">
                         <div class="contestant-carousel">
                             <div class="contestant-item" style="left: 10%;">
-                                <img src="https://placehold.co/400x500" alt="Contestant 1">
+                                <img src="assets/contestants/1.png" alt="Contestant 1">
                                 <div class="contestant-info">
                                     <h5>Contestant 1</h5>
                                 </div>
                             </div>
                             <div class="contestant-item" style="left: 30%;">
-                                <img src="https://placehold.co/400x500" alt="Contestant 2">
+                                <img src="assets/contestants/1.png" alt="Contestant 2">
                                 <div class="contestant-info">
                                     <h5>Contestant 2</h5>
                                 </div>
                             </div>
                             <div class="contestant-item" style="left: 50%;">
-                                <img src="https://placehold.co/400x500" alt="Twizerrimana Christophe">
+                                <img src="assets/contestants/2.png" alt="Twizerrimana Christophe">
                                 <div class="contestant-info">
                                     <h5>Twizerrimana Christophe</h5>
                                 </div>
                             </div>
                             <div class="contestant-item" style="left: 70%;">
-                                <img src="https://placehold.co/400x500" alt="Contestant 4">
+                                <img src="assets/contestants/3.png" alt="Contestant 4">
                                 <div class="contestant-info">
                                     <h5>Contestant 4</h5>
                                 </div>
