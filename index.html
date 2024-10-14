@@ -1,41 +1,453 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RSW Talent Hunt</title>
+    <title>RSW Talent Contest</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        .hero {
-            background: url('/api/placeholder/1200/600') no-repeat center center;
-            background-size: cover;
+        :root {
+            --primary-color: #242565;
+            --secondary-color: #FFA500;
+            --light-bg: #F5F5F5;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .bg-brand {
+            background-color: var(--primary-color);
+        }
+
+        .navbar-brand img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .nav-link.btn-outline-warning {
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        .hero-section {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, rgba(255, 193, 7, 0.7), rgba(13, 110, 253, 0.7));
+            z-index: 1;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .section-select {
+            background-color: var(--primary-color);
             color: white;
-            padding: 100px 0;
+            padding: 2rem;
+            border-radius: 20px;
+            margin-top: -50px;
+            position: relative;
+            z-index: 3;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .nav-link {
-            color: white !important;
-        }
-        .btn-custom {
-            background-color: #ffd700;
-            color: #000;
-        }
-        .card {
+
+        .section-select .form-select {
+            background-color: var(--primary-color);
+            color: white;
             border: none;
-            background-color: #f0f0f0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0;
+            padding-left: 0;
         }
-        .footer {
-            background-color: #1a237e;
+
+        .section-select .form-select:focus {
+            box-shadow: none;
+        }
+
+        .section-select label {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .heading-section {
+            padding: 4rem 0;
+        }
+
+        .heading-section h2 {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 3rem;
+        }
+
+        .icon-box {
+            text-align: left;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .icon-box .icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .icon-box .icon i {
+            font-size: 2rem;
             color: white;
+        }
+
+        .icon-box h4 {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .icon-box p {
+            color: #666;
+        }
+
+        .icon-box.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .icon-box.active h4,
+        .icon-box.active p {
+            color: white;
+        }
+
+        .talent-contests {
+            background-color: var(--light-bg);
+            padding: 4rem 0;
+        }
+
+        .talent-contests h2 {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+
+        .contest-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .contest-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .contest-card .card-body {
+            padding: 1rem;
+        }
+
+        .contest-card .card-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .contest-card .card-text {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .contest-card .location {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .contest-card .btn-closed {
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 0.8rem;
+            padding: 0.3rem 1rem;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .about-us {
+            padding: 4rem 0;
+            background-color: var(--light-bg);
+        }
+
+        .about-us h2 {
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .about-us h3 {
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .about-us h3 span {
+            color: var(--secondary-color);
+        }
+
+        .about-us img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .about-us h4 {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .about-us p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .our-partners {
+            background-color: var(--light-bg);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .our-partners h2 {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .our-partners p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .partner-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .partner-logos img {
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .gallery {
+            background-color: #242565;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .gallery h2 {
+            color: white;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .gallery p {
+            color: #FFA500;
+            margin-bottom: 2rem;
+        }
+
+        .gallery-images {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding-bottom: 1rem;
+        }
+
+        .gallery-images img {
+            height: 200px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .contestants {
+            background-color: #4b3b60;
+            padding: 4rem 0;
+        }
+
+        .contestants h2 {
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .contestant-carousel {
+            position: relative;
+            height: 300px;
+        }
+
+        .contestant-item {
+            position: absolute;
+            transition: all 0.3s ease;
+            width: 200px;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .contestant-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .contestant-item .contestant-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .contestant-item:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+        .contestant-item:hover .contestant-info {
+            transform: translateY(0);
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 5%;
+        }
+
+        .footer {
+            background-color: #242565;
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer p,
+        .footer ul {
+            font-size: 0.9rem;
+        }
+
+        .footer ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .footer ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1rem;
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .subscribe-form {
+            display: flex;
+        }
+
+        .subscribe-form input {
+            flex-grow: 1;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .subscribe-form button {
+            background-color: #FFA500;
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0 5px 5px 0;
+        }
+        .text-brand-yellow{
+            color: #FFA500;
         }
     </style>
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-brand">
         <div class="container">
-            <a class="navbar-brand" href="#">RSW</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <a class="navbar-brand" href="#"><img src="assets/logo.png" alt="RSW Logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -44,172 +456,270 @@
                     <li class="nav-item"><a class="nav-link" href="#">About us</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">RSW Talent Contests</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link btn btn-custom" href="#">Vote</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-outline-warning" href="#">Vote</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="row">
+    <div class="hero-section">
+        <img src="assets/hero_bg.png" class="hero-image" alt="Hero Background">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <div class="row align-items-center">
                 <div class="col-md-6">
-                    <h1>Let your talent shine to serve God, with heart of humanity</h1>
-                    <p>RISE AND SHINE WORLD INC has put up this RSW Talent Hunt Competition for everyone who feels can be of service to humanity!</p>
-                    <button class="btn btn-custom">Learn More</button>
-                    <button class="btn btn-outline-light">Register for contest</button>
+                    <img src="assets/woman.png" class="img-fluid" alt="Featured Image">
+                </div>
+                <div class="col-md-6 text-white">
+                    <h1 class="text-brand-yellow">Let your talent shine to serve God, with heart of humanity</h1>
+                    <p>RISE AND SHINE WORLD Inc. has put up this RSW Talent Hunt competition for everyone who feels
+                        talented and gifted.</p>
+                    <a href="#" class="btn btn-primary">Learn More</a>
+                    <a href="#" class="btn btn-warning">Register for contest</a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Contest Info -->
-    <section class="bg-light py-5">
+    <!-- Section with dropdowns -->
+    <div class="container">
+        <div class="section-select">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label for="contest">Search contest</label>
+                    <select class="form-select" id="contest">
+                        <option selected>Rsw Talent hunt</option>
+                        <option value="1">Another contest</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="country">Country</label>
+                    <select class="form-select" id="country">
+                        <option selected>Rwanda</option>
+                        <option value="1">Kenya</option>
+                        <option value="2">Uganda</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="time">Time</label>
+                    <select class="form-select" id="time">
+                        <option selected>Month</option>
+                        <option value="1">Year</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Where we are heading Section -->
+    <div class="heading-section">
         <div class="container">
+            <h2 class="text-center">Where we are heading</h2>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Contest</h5>
-                            <p>RSW Talent Hunt</p>
+                    <div class="icon-box active">
+                        <div class="icon">
+                            <i class="fas fa-eye"></i>
                         </div>
+                        <h4>VISION</h4>
+                        <p>RSW Talent Hunt is an international gospel talent pageant, organized with a clear concept of
+                            encourage peoples for any age, any country, God.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Country</h5>
-                            <p>Rwanda</p>
+                    <div class="icon-box">
+                        <div class="icon">
+                            <i class="fas fa-bullseye"></i>
                         </div>
+                        <h4>MISSION</h4>
+                        <p>RSW Talent Hunt is an international gospel talent pageant, organized with a clear concept of
+                            encourage peoples for any age, any country, God.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Time</h5>
-                            <p>Month</p>
+                    <div class="icon-box">
+                        <div class="icon">
+                            <i class="fas fa-lightbulb"></i>
                         </div>
+                        <h4>THEME</h4>
+                        <p>"Let your talent shine to serve God, with Heart of humanity"</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Where we are heading -->
-    <section class="py-5">
+    <!-- RSW talent contests Section -->
+    <section class="talent-contests">
         <div class="container">
-            <h2 class="text-center mb-5">Where we are heading</h2>
+            <h2>RSW talent contests</h2>
             <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
+                <!-- Contest Card 1 -->
+                <div class="col-md-3">
+                    <div class="contest-card">
+                        <img src="https://placehold.co/400x300" alt="RSW Talent Hunt">
                         <div class="card-body">
-                            <h5>VISION</h5>
-                            <p>RSW Talent Hunt is an international gospel talent scouting, organized online platform for people of all ages with talents from any age, any country, God...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>MISSION</h5>
-                            <p>RSW Talent Hunt is an international gospel talent scouting, organized with a clear online platform for people of all ages with talents from any country, God...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>THEME</h5>
-                            <p>"Let your talent shine to serve God, with heart of humanity"</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- RSW talent contests -->
-    <section class="bg-light py-5">
-        <div class="container">
-            <h2 class="text-center mb-5">RSW talent contests</h2>
-            <div class="row">
-                <!-- Repeat this card 4 times -->
-                <div class="col-md-3 mb-4">
-                    <div class="card">
-                        <img src="/api/placeholder/300/200" class="card-img-top" alt="Talent Contest">
-                        <div class="card-body">
+                            <p class="card-text"><i class="far fa-clock"></i> 15-09-2023 10:00 PM</p>
                             <h5 class="card-title">RSW TALENT HUNT RWANDA FIRST EDITION</h5>
-                            <p class="card-text">1-10-01-2023 23:00 PM</p>
-                            <a href="#" class="btn btn-primary">Closed</a>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> Rwanda</p>
+                            <button class="btn btn-closed">Closed</button>
                         </div>
                     </div>
                 </div>
-                <!-- Repeat for other contest cards -->
+                <!-- Contest Card 2 -->
+                <div class="col-md-3">
+                    <div class="contest-card">
+                        <img src="https://placehold.co/400x300" alt="RSW Talent Hunt">
+                        <div class="card-body">
+                            <p class="card-text"><i class="far fa-clock"></i> 15-09-2023 10:00 PM</p>
+                            <h5 class="card-title">RSW TALENT HUNT RWANDA FIRST EDITION</h5>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> Rwanda</p>
+                            <button class="btn btn-closed">Closed</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Contest Card 3 -->
+                <div class="col-md-3">
+                    <div class="contest-card">
+                        <img src="https://placehold.co/400x300" alt="RSW Talent Hunt">
+                        <div class="card-body">
+                            <p class="card-text"><i class="far fa-clock"></i> 15-09-2023 10:00 PM</p>
+                            <h5 class="card-title">RSW TALENT HUNT RWANDA FIRST EDITION</h5>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> Rwanda</p>
+                            <button class="btn btn-closed">Closed</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Contest Card 4 -->
+                <div class="col-md-3">
+                    <div class="contest-card">
+                        <img src="https://placehold.co/400x300" alt="RSW Talent Hunt">
+                        <div class="card-body">
+                            <p class="card-text"><i class="far fa-clock"></i> 15-09-2023 10:00 PM</p>
+                            <h5 class="card-title">RSW TALENT HUNT RWANDA FIRST EDITION</h5>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> Rwanda</p>
+                            <button class="btn btn-closed">Closed</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- About Us -->
-    <section class="py-5">
+    <!-- About Us Section -->
+    <section class="about-us">
         <div class="container">
             <h2>About us</h2>
-            <h3>Get to Know Us Better</h3>
+            <h3>Get to Know Us <span>Better</span></h3>
             <div class="row">
                 <div class="col-md-6">
-                    <img src="/api/placeholder/400/300" alt="RSW Logo" class="img-fluid mb-3">
+                    <img src="https://placehold.co/600x300" alt="RSW Talent Hunt West Province Registration">
                     <h4>A Brief Background</h4>
-                    <p>It all began with Justin Alain and a young man, one time when he went to pray at the church in the village where he lives, there was a youth training program with the theme of 'Let your gift shine! If it's Jesus who gave it to you, show Him'...</p>
+                    <p>In 2009 when Bishop Justin Alain was a young man, one time when he went to pray at the church in
+                        the village where he lived, there was a youth training program with the theme of: Let your gift
+                        shine if it is Jesus who gave it to you. Wherefore I put thee in remembrance that thou stir up
+                        the gift of God, which is in thee by the putting on of my hands. For God hath not given us the
+                        spirit of fear; but of power, and of love, and of a sound mind. Be not thou therefore ashamed of
+                        the testimony of our Lord, nor of me his prisoner: but be thou partaker of the afflictions of
+                        the gospel according to the power of God. (2 Timothy 1:6-8)</p>
+                    <p>The training was organized by people from America. After three days of training, it made him
+                        understand that it was time for his talents to be revealed and enlightened to many. It motivated
+                        him to use the gift that given to him by God. Since that time, he felt that there are people who
+                        are self-deprecating among them who feel that they are not capable of anything, he feels that he
+                        should go and tell people to show their talents because they were given to them by God.</p>
                 </div>
                 <div class="col-md-6">
-                    <img src="/api/placeholder/400/300" alt="Team Photo" class="img-fluid mb-3">
-                    <p>The training was organized by people from America. After three days of training, a youth from umudugudu was given time for his talents to be revealed and enlightened to many. I motivated him to use the gift God gave to him by God's spirit to praise and worship God...</p>
+                    <img src="https://placehold.co/600x300" alt="RSW Talent Hunt Participants">
+                    <p>Years later he got married and continued the good work of serving God through the gifts given to
+                        him by God together with his wife in expanding the kingdom of God. Around 2012, God found Bishop
+                        Justin Alain in a vision. In that vision, God showed him 5 stars in 1 star and immediately
+                        produced 3 things. God has revealed to him that the five stars are the 5 directions of the
+                        earth: the five continents of the world, and the 5 directions that characterize man if they will
+                        combine in 1 star (Jesus Christ) would do.</p>
+                    <img src="https://placehold.co/600x300" alt="Bishop Justin Alain">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Gallery -->
-    <section class="bg-primary text-white py-5">
+    <!-- Our Partners Section -->
+    <section class="our-partners">
+        <div class="container">
+            <h2>Our Partners</h2>
+            <p>We've had the pleasure of working with industry-defining brands. These are just some of them.</p>
+            <div class="partner-logos">
+                <img src="https://placehold.co/120x40" alt="Spotify" title="Spotify">
+                <img src="https://placehold.co/120x40" alt="Google" title="Google">
+                <img src="https://placehold.co/120x40" alt="Stripe" title="Stripe">
+                <img src="https://placehold.co/120x40" alt="YouTube" title="YouTube">
+                <img src="https://placehold.co/120x40" alt="Microsoft" title="Microsoft">
+                <img src="https://placehold.co/120x40" alt="Medium" title="Medium">
+                <img src="https://placehold.co/120x40" alt="Zoom" title="Zoom">
+                <img src="https://placehold.co/120x40" alt="Uber" title="Uber">
+                <img src="https://placehold.co/120x40" alt="Grab" title="Grab">
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery">
         <div class="container">
             <h2>Gallery</h2>
-            <p>Dive into our memories that we have created through events and concerts!</p>
-            <div class="row">
-                <!-- Add 6 placeholder images here -->
-                <div class="col-md-2 col-4 mb-3">
-                    <img src="/api/placeholder/200/200" alt="Gallery Image" class="img-fluid">
-                </div>
-                <!-- Repeat for other images -->
+            <p>Dive into our memories that we have created through events and concerts!!</p>
+            <div class="gallery-images">
+                <img src="https://placehold.co/600x400" alt="Gallery Image 1">
+                <img src="https://placehold.co/600x400" alt="Gallery Image 2">
+                <img src="https://placehold.co/600x400" alt="Gallery Image 3">
+                <img src="https://placehold.co/600x400" alt="Gallery Image 4">
+                <img src="https://placehold.co/600x400" alt="Gallery Image 5">
+                <img src="https://placehold.co/600x400" alt="Gallery Image 6">
             </div>
         </div>
     </section>
 
-    <!-- Previous contestants -->
-    <section class="py-5">
+    <!-- Previous Contestants Section -->
+    <section class="contestants">
         <div class="container">
             <h2>Previous contestants and competitions</h2>
             <div id="contestantCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <div class="row">
-                            <!-- Add 4 contestant cards here -->
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <img src="/api/placeholder/200/200" class="card-img-top" alt="Contestant">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Contestant Name</h5>
-                                    </div>
+                        <div class="contestant-carousel">
+                            <div class="contestant-item" style="left: 10%;">
+                                <img src="https://placehold.co/400x500" alt="Contestant 1">
+                                <div class="contestant-info">
+                                    <h5>Contestant 1</h5>
                                 </div>
                             </div>
-                            <!-- Repeat for other contestants -->
+                            <div class="contestant-item" style="left: 30%;">
+                                <img src="https://placehold.co/400x500" alt="Contestant 2">
+                                <div class="contestant-info">
+                                    <h5>Contestant 2</h5>
+                                </div>
+                            </div>
+                            <div class="contestant-item" style="left: 50%;">
+                                <img src="https://placehold.co/400x500" alt="Twizerrimana Christophe">
+                                <div class="contestant-info">
+                                    <h5>Twizerrimana Christophe</h5>
+                                </div>
+                            </div>
+                            <div class="contestant-item" style="left: 70%;">
+                                <img src="https://placehold.co/400x500" alt="Contestant 4">
+                                <div class="contestant-info">
+                                    <h5>Contestant 4</h5>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#contestantCarousel" data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#contestantCarousel"
+                    data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#contestantCarousel" data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#contestantCarousel"
+                    data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
@@ -217,43 +727,58 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer py-5">
+    <!-- Footer Section -->
+    <footer class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <h5>RSW</h5>
-                    <p>Rise Shine World</p>
-                    <p>RSW Talent Hunt</p>
+                <div class="col-md-3">
+                    <h3>RSW</h3>
+                    <p>RSW Talent hunt can catapult you into global stardom. No one is too old or too young to have a
+                        crack - the title is YOURS for the taking!</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <h5>Eventick</h5>
-                    <p>About Us</p>
-                    <p>Blog</p>
-                    <p>Contact Us</p>
-                    <p>Testimonials</p>
+                <div class="col-md-3">
+                    <h3>RSW</h3>
+                    <ul>
+                        <li><a href="#">MISS RSW</a></li>
+                        <li><a href="#">RSW TALENT HUNT</a></li>
+                        <li><a href="#">CONTESTS</a></li>
+                        <li><a href="#">EVENTS</a></li>
+                    </ul>
                 </div>
-                <div class="col-md-4">
-                    <h5>Get All News</h5>
-                    <p>Sign up to stay updated on the latest events and fun!</p>
-                    <form>
-                        <div class="input-group mb-3">
-                            <input type="email" class="form-control" placeholder="Your email">
-                            <button class="btn btn-custom" type="submit">Subscribe</button>
-                        </div>
+                <div class="col-md-3">
+                    <h3>Eventick</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Vote</a></li>
+                        <li><a href="#">Buy tickets</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h3>Get All News</h3>
+                    <p>Join our mailing list to stay with our newest for Event and concerts</p>
+                    <form class="subscribe-form">
+                        <input type="email" placeholder="Enter your email address..">
+                        <button type="submit">Subscribe Now</button>
                     </form>
                 </div>
             </div>
-            <div class="row mt-4">
-                <div class="col-md-12 text-center">
-                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
-                </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2023 RSW. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
