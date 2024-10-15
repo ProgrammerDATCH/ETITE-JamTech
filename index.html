@@ -7,6 +7,7 @@
     <title>RSW Talent Contest</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="assets/hero/logo.png" type="image/x-icon">
     <style>
         :root {
             --primary-color: #242565;
@@ -93,7 +94,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(to right, rgba(255, 193, 7, 0.7), rgba(13, 110, 253, 0.7));
+            background: linear-gradient(to right, rgba(255, 193, 7, 0.5), rgba(13, 110, 253, 0.8));
             z-index: 1;
         }
 
@@ -438,7 +439,7 @@
         }
 
         .text-brand-yellow {
-            color: #dfb544;
+            color: #ca9b1b;
         }
 
 
@@ -446,7 +447,9 @@
 
         .contestants-section {
             background-color: #4b3b60;
+            padding: 50px 0;
             position: relative;
+            overflow: hidden;
         }
 
         .contestants-section::before {
@@ -462,16 +465,36 @@
             z-index: 1;
         }
 
-        .contestants-section .container {
+        .contestants-container {
             position: relative;
             z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .contestant-wrapper {
+        .title-container {
+            background-color: white;
+            padding: 10px 0;
+            margin-bottom: 30px;
+        }
+
+        .contestants-title {
+            color: #4b3b60;
+            text-align: center;
+            margin: 0;
+        }
+
+        .contestants-carousel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
             position: relative;
-            width: 200px;
-            height: 250px;
-            overflow: hidden;
+        }
+
+        .contestant-item {
+            position: absolute;
+            transition: all 0.5s ease;
         }
 
         .contestant-img {
@@ -480,62 +503,85 @@
             object-fit: cover;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
         }
 
-        .contestant-overlay {
+        .contestant-name {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
             background-color: rgba(0, 0, 0, 0.7);
             color: white;
-            padding: 10px;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .contestant-overlay p {
-            margin: 0;
+            padding: 5px;
             text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
         }
 
-        .contestant-wrapper:hover .contestant-img {
-            transform: scale(1.1);
+        .contestant-item:hover .contestant-name {
+            opacity: 1;
         }
 
-        .contestant-wrapper:hover .contestant-overlay {
-            transform: translateY(0);
+        .contestant-item.center {
+            width: 200px;
+            height: 250px;
+            z-index: 3;
+            opacity: 1;
         }
 
-        #contestantCarousel {
-            padding-bottom: 50px;
+        .contestant-item.side {
+            width: 160px;
+            height: 200px;
+            z-index: 2;
+            opacity: 0.7;
         }
 
-        .carousel-control-prev,
-        .carousel-control-next {
-            width: 5%;
+        .contestant-item.outer {
+            width: 120px;
+            height: 150px;
+            z-index: 1;
+            opacity: 0.4;
         }
 
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            background-image: none;
-            width: 30px;
-            height: 30px;
-            border-top: 3px solid white;
-            border-right: 3px solid white;
+        .contestant-item:nth-child(1) {
+            transform: translateX(-300px);
         }
 
-        .carousel-control-prev-icon {
-            transform: rotate(-135deg);
+        .contestant-item:nth-child(2) {
+            transform: translateX(-150px);
         }
 
-        .carousel-control-next-icon {
-            transform: rotate(45deg);
+        .contestant-item:nth-child(3) {
+            transform: translateX(0);
         }
 
-        .carousel-item {
-            text-align: center;
+        .contestant-item:nth-child(4) {
+            transform: translateX(150px);
+        }
+
+        .contestant-item:nth-child(5) {
+            transform: translateX(300px);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .carousel-nav.prev {
+            left: 10px;
+        }
+
+        .carousel-nav.next {
+            right: 10px;
         }
     </style>
 </head>
@@ -565,42 +611,55 @@
     <!-- Hero Section Carousel -->
     <div id="heroCarousel" class="carousel slide hero-section" data-bs-ride="carousel">
         <div class="carousel-inner">
+
             <div class="carousel-item active">
                 <img src="assets/hero/hero_bg.png" class="hero-image" alt="Hero Background 1">
                 <div class="hero-overlay"></div>
                 <div class="container hero-content">
                     <div class="row align-items-center">
-                        <div class="col-md-6">
+                        <div class="col-md-6 order-2 order-md-1">
                             <img src="assets/hero/woman.png" class="img-fluid" alt="Featured Image 1">
                         </div>
-                        <div class="col-md-6 text-white">
-                            <h1 class="text-brand-yellow">Let your talent shine to serve God, with heart of humanity
+                        <div class="col-md-6 text-white order-1 order-md-2">
+                            <h1 class="text-brand-yellow">
+                                Let your talent shine to serve God, with heart of humanity
                             </h1>
-                            <p>RISE AND SHINE WORLD Inc. has put up this RSW Talent Hunt competition for everyone who
-                                feels talented and gifted.</p>
+                            <p>
+                                RISE AND SHINE WORLD Inc. has put up this RSW Talent Hunt competition for everyone
+                                who feels talented and gifted.
+                            </p>
                             <a href="#" class="btn btn-outline-light">Learn More</a>
                             <a href="#" class="btn btn-warning">Register for contest</a>
                         </div>
                     </div>
+
                 </div>
             </div>
-            <div class="carousel-item">
-                <img src="assets/hero/hero_bg.png" class="hero-image" alt="Hero Background 2">
+
+            <div class="carousel-item active">
+                <img src="assets/hero/hero_bg.png" class="hero-image" alt="Hero Background 1">
                 <div class="hero-overlay"></div>
                 <div class="container hero-content">
                     <div class="row align-items-center">
-                        <div class="col-md-6">
-                            <img src="assets/hero/woman.png" class="img-fluid" alt="Featured Image 2">
+                        <div class="col-md-6 order-2 order-md-1">
+                            <img src="assets/hero/woman.png" class="img-fluid" alt="Featured Image 1">
                         </div>
-                        <div class="col-md-6 text-white">
-                            <h1 class="text-brand-yellow">Discover Your Hidden Talents</h1>
-                            <p>Join our global community of talented individuals and showcase your unique abilities.</p>
-                            <a href="#" class="btn btn-outline-light">Explore Contests</a>
-                            <a href="#" class="btn btn-warning">Sign Up Now</a>
+                        <div class="col-md-6 text-white order-1 order-md-2">
+                            <h1 class="text-brand-yellow">
+                                Let your talent shine to serve God, with heart of humanity
+                            </h1>
+                            <p>
+                                RISE AND SHINE WORLD Inc. has put up this RSW Talent Hunt competition for everyone
+                                who feels talented and gifted.
+                            </p>
+                            <a href="#" class="btn btn-outline-light">Learn More</a>
+                            <a href="#" class="btn btn-warning">Register for contest</a>
                         </div>
                     </div>
+
                 </div>
             </div>
+
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -924,70 +983,68 @@
     </section>
 
 
-    <!-- Previous Contestants Section -->
-    <section class="contestants-section py-5">
-        <div class="container">
-            <h2 class="text-center text-white mb-4">Previous contestants and competitions</h2>
-            <div id="contestantCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="d-flex justify-content-center">
-                            <div class="contestant-wrapper mx-2">
-                                <img src="assets/contestants/1.png" class="contestant-img" alt="Contestant 1">
-                                <div class="contestant-overlay">
-                                    <p>Contestant 1</p>
-                                </div>
-                            </div>
-                            <div class="contestant-wrapper mx-2">
-                                <img src="assets/contestants/2.png" class="contestant-img" alt="Contestant 2">
-                                <div class="contestant-overlay">
-                                    <p>Contestant 2</p>
-                                </div>
-                            </div>
-                            <div class="contestant-wrapper mx-2">
-                                <img src="assets/contestants/3.png" class="contestant-img" alt="Contestant 3">
-                                <div class="contestant-overlay">
-                                    <p>Contestant 3</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="d-flex justify-content-center">
-                            <div class="contestant-wrapper mx-2">
-                                <img src="assets/contestants/4.png" class="contestant-img" alt="Contestant 4">
-                                <div class="contestant-overlay">
-                                    <p>Contestant 4</p>
-                                </div>
-                            </div>
-                            <div class="contestant-wrapper mx-2">
-                                <img src="assets/contestants/2.png" class="contestant-img" alt="Contestant 5">
-                                <div class="contestant-overlay">
-                                    <p>Contestant 5</p>
-                                </div>
-                            </div>
-                            <div class="contestant-wrapper mx-2">
-                                <img src="assets/contestants/4.png" class="contestant-img" alt="Contestant 6">
-                                <div class="contestant-overlay">
-                                    <p>Contestant 6</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="title-container">
+        <h2 class="contestants-title">Previous contestants and competitions</h2>
+    </div>
+    <section class="contestants-section">
+        <div class="contestants-container">
+            <div class="contestants-carousel">
+                <div class="contestant-item outer">
+                    <img src="assets/contestants/1.png" alt="Contestant 1" class="contestant-img">
+                    <div class="contestant-name">Contestant 1</div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#contestantCarousel"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#contestantCarousel"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+                <div class="contestant-item side">
+                    <img src="assets/contestants/2.png" alt="Contestant 2" class="contestant-img">
+                    <div class="contestant-name">Contestant 2</div>
+                </div>
+                <div class="contestant-item center">
+                    <img src="assets/contestants/3.png" alt="Contestant 3" class="contestant-img">
+                    <div class="contestant-name">Contestant 3</div>
+                </div>
+                <div class="contestant-item side">
+                    <img src="assets/contestants/4.png" alt="Contestant 4" class="contestant-img">
+                    <div class="contestant-name">Contestant 4</div>
+                </div>
+                <div class="contestant-item outer">
+                    <img src="assets/contestants/1.png" alt="Contestant 5" class="contestant-img">
+                    <div class="contestant-name">Contestant 5</div>
+                </div>
+                <button class="carousel-nav prev">&#10094;</button>
+                <button class="carousel-nav next">&#10095;</button>
             </div>
         </div>
     </section>
+
+    <script>
+        const carousel = document.querySelector('.contestants-carousel');
+        const items = Array.from(carousel.querySelectorAll('.contestant-item'));
+        const prevBtn = carousel.querySelector('.carousel-nav.prev');
+        const nextBtn = carousel.querySelector('.carousel-nav.next');
+
+        function rotateCarousel(direction) {
+            if (direction === 'next') {
+                items.unshift(items.pop());
+            } else {
+                items.push(items.shift());
+            }
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            items.forEach((item, index) => {
+                item.className = 'contestant-item';
+                if (index === 0) item.classList.add('outer');
+                if (index === 1) item.classList.add('side');
+                if (index === 2) item.classList.add('center');
+                if (index === 3) item.classList.add('side');
+                if (index === 4) item.classList.add('outer');
+                item.style.transform = `translateX(${(index - 2) * 150}px)`;
+            });
+        }
+
+        prevBtn.addEventListener('click', () => rotateCarousel('prev'));
+        nextBtn.addEventListener('click', () => rotateCarousel('next'));
+    </script>
 
     <!-- Footer Section -->
     <footer class="footer">
@@ -1042,14 +1099,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var carousel = new bootstrap.Carousel(document.getElementById('contestantCarousel'), {
-                interval: 5000,
-                wrap: true
-            });
-        });
-    </script>
 </body>
 
 </html>
