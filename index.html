@@ -583,6 +583,62 @@
         .carousel-nav.next {
             right: 10px;
         }
+
+        .contestants-carousel {
+            touch-action: pan-y;
+        }
+
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: background 0.3s ease;
+        }
+
+
+        .carousel-nav.prev {
+            left: 10px;
+        }
+
+        .carousel-nav.next {
+            right: 10px;
+        }
+
+        /* Media query for mobile devices */
+        @media (max-width: 768px) {
+            .carousel-nav {
+                width: 50px;
+                height: 50px;
+                font-size: 30px;
+            }
+
+            .carousel-nav.prev {
+                left: 5px;
+            }
+
+            .carousel-nav.next {
+                right: 5px;
+            }
+        }
+
+        /* Ensure the carousel container doesn't hide the buttons */
+        .contestants-carousel {
+            touch-action: pan-y;
+            padding: 0 60px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 
@@ -1021,6 +1077,9 @@
         const prevBtn = carousel.querySelector('.carousel-nav.prev');
         const nextBtn = carousel.querySelector('.carousel-nav.next');
 
+        let startX, moveX;
+        let isDragging = false;
+
         function rotateCarousel(direction) {
             if (direction === 'next') {
                 items.unshift(items.pop());
@@ -1042,9 +1101,45 @@
             });
         }
 
+        function handleDragStart(e) {
+            isDragging = true;
+            startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+            carousel.style.cursor = 'grabbing';
+        }
+
+        function handleDragMove(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            moveX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+        }
+
+        function handleDragEnd() {
+            if (!isDragging) return;
+            isDragging = false;
+            carousel.style.cursor = 'grab';
+            if (startX - moveX > 50) {
+                rotateCarousel('next');
+            } else if (startX - moveX < -50) {
+                rotateCarousel('prev');
+            }
+        }
+
         prevBtn.addEventListener('click', () => rotateCarousel('prev'));
         nextBtn.addEventListener('click', () => rotateCarousel('next'));
+
+        // Add event listeners for both mouse and touch events
+        carousel.addEventListener('mousedown', handleDragStart);
+        carousel.addEventListener('touchstart', handleDragStart);
+
+        carousel.addEventListener('mousemove', handleDragMove);
+        carousel.addEventListener('touchmove', handleDragMove);
+
+        carousel.addEventListener('mouseup', handleDragEnd);
+        carousel.addEventListener('touchend', handleDragEnd);
+
+        carousel.addEventListener('mouseleave', handleDragEnd);
     </script>
+
 
     <!-- Footer Section -->
     <footer class="footer">
