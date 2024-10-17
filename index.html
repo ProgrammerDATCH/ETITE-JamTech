@@ -1118,9 +1118,9 @@
             isDragging = false;
             carousel.style.cursor = 'grab';
             if (startX - moveX > 50) {
-                rotateCarousel('next');
-            } else if (startX - moveX < -50) {
                 rotateCarousel('prev');
+            } else if (startX - moveX < -50) {
+                rotateCarousel('next');
             }
         }
 
